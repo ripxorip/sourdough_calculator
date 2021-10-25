@@ -1,5 +1,15 @@
 use clap::{App, Arg};
 
+/// Struct used for the ingredients
+#[derive(Debug)]
+struct DoughData {
+    inoculation: f32,
+    starter_hydration: f32,
+    salt: f32,
+    flour: f32,
+    hydration: f32
+}
+
 fn main() {
     let matches = App::new("The Sourdough Calculator")
         .version("0.1.0")
@@ -47,5 +57,13 @@ fn main() {
                 .help("The hydration of the starter (percentage)"),
         )
         .get_matches();
-    println!("{:?}", matches);
+
+    let inoculation = 0.01 * matches.value_of("inoculation").unwrap().parse::<f32>().unwrap();
+    let starter_hydration = 0.01 * matches.value_of("starter_hydration").unwrap().parse::<f32>().unwrap();
+    let salt = 0.01 * matches.value_of("salt").unwrap().parse::<f32>().unwrap();
+    let flour = matches.value_of("flour").unwrap().parse::<f32>().unwrap();
+    let hydration = 0.01 * matches.value_of("hydration").unwrap().parse::<f32>().unwrap();
+
+    let test = DoughData{inoculation, starter_hydration, salt, flour, hydration};
+    println!("{:?}", test);
 }
