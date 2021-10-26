@@ -58,7 +58,7 @@ fn main() {
 
     let res = sourdough_calculator::calculate_dough(sourdough_calculator::DoughData{inoculation, starter_hydration, salt, flour, hydration});
     let mut table = Table::new();
-    table.add_row(row!["Flour (g)", "Water (g)", "Salt (g)", "Starter (g)", "Dough Weight (g)"]);
+    table.add_row(row!["Flour (g)", "Water (g)", "Salt (g)", "Starter (g)", "Total Dough Weight (g)"]);
     table.add_row(row![format!("{:.2}", res.flour), format!("{:.2}", res.water), format!("{:.2}", res.salt), format!("{:.2}", res.starter), res.dough_weight]);
     table.printstd();
 }
