@@ -45,7 +45,7 @@ fn main() {
                 .long("starter_hydration")
                 .takes_value(true)
                 .required(false)
-                .default_value("50")
+                .default_value("100")
                 .help("The hydration of the starter (percentage)"),
         )
         .get_matches();

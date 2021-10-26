@@ -19,10 +19,12 @@ pub struct DoughResult {
 }
 
 pub fn calculate_dough(dd: DoughData) -> DoughResult {
-    let tot_flour = dd.flour + dd.inoculation * dd.flour * (1.00 - dd.starter_hydration);
     let tot_starter = dd.flour * dd.inoculation;
+    let starter_flour = tot_starter / (1.00 + dd.starter_hydration);
+    let starter_water = starter_flour * dd.starter_hydration;
+    let tot_flour = dd.flour + starter_flour;
     let tot_water = tot_flour * dd.hydration;
-    let missing_water = tot_water - (dd.starter_hydration * tot_starter);
+    let missing_water = tot_water - starter_water;
     let amount_salt = dd.salt * dd.flour;
     let tot_weight = amount_salt + tot_flour + tot_water;
 
