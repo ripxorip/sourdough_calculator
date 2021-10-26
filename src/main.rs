@@ -1,19 +1,11 @@
+#[macro_use] extern crate prettytable;
+use prettytable::Table;
 use clap::{App, Arg};
-
-/// Struct used for the ingredients
-#[derive(Debug)]
-struct DoughData {
-    inoculation: f32,
-    starter_hydration: f32,
-    salt: f32,
-    flour: f32,
-    hydration: f32
-}
 
 fn main() {
     let matches = App::new("The Sourdough Calculator")
         .version("0.1.0")
-        .author("Philip Karlsson Gisslow <ripxorip@gmail.com>")
+        .author("Philip K. Gisslow <ripxorip@gmail.com>")
         .about("A CLI program used to calculate sourdough bread recipes")
         .arg(
             Arg::with_name("hydration")
@@ -64,6 +56,9 @@ fn main() {
     let flour = matches.value_of("flour").unwrap().parse::<f32>().unwrap();
     let hydration = 0.01 * matches.value_of("hydration").unwrap().parse::<f32>().unwrap();
 
-    let test = DoughData{inoculation, starter_hydration, salt, flour, hydration};
-    println!("{:?}", test);
+    let res = sourdough_calculator::calculate_dough(sourdough_calculator::DoughData{inoculation, starter_hydration, salt, flour, hydration});
+    let mut table = Table::new();
+    table.add_row(row!["Flour (g)", "Water (g)", "Salt (g)", "Starter (g)", "Dough Weight (g)"]);
+    table.add_row(row![format!("{:.2}", res.flour), format!("{:.2}", res.water), format!("{:.2}", res.salt), format!("{:.2}", res.starter), res.dough_weight]);
+    table.printstd();
 }
